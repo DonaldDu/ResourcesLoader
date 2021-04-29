@@ -1,4 +1,8 @@
 package android.content.res;
 
-public class StringBlock {
+/**
+ * Illegal class access
+ */
+@Deprecated
+class StringBlock {
 }

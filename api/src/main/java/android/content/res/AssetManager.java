@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 
 public abstract class AssetManager {
+    private StringBlock mStringBlocks[] = null;
     /**
      * not found for user
      */
@@ -30,6 +31,10 @@ public abstract class AssetManager {
     @Deprecated
     public abstract void setApkAssets(@NonNull ApkAssets[] apkAssets, boolean invalidateCaches);
 
+    /**
+     * inaccessible for user
+     */
+    @Deprecated
     @NonNull
     abstract StringBlock[] ensureStringBlocks();
 

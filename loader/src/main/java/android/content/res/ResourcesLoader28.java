@@ -3,6 +3,7 @@ package android.content.res;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -14,9 +15,10 @@ public class ResourcesLoader28 extends BaseResourcesLoader<ApkAssets> {
         return asset.getApkAssets();
     }
 
+
     @Override
-    public List<String> getLoadedResDirs(@NonNull AssetManager asset, @NonNull ApkAssets[] fullApks) {
-        List<String> paths = new ArrayList<>();
+    public Collection<String> getLoadedResDirs(@NonNull AssetManager asset, @NonNull ApkAssets[] fullApks) {
+        List<String> paths = new ArrayList<>(fullApks.length);
         for (ApkAssets apk : fullApks) {
             paths.add(apk.getAssetPath());
         }

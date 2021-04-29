@@ -34,7 +34,7 @@ public abstract class BaseResourcesLoader<APK> implements IResourcesLoader {
 
     private APK[] loadResources(@NonNull AssetManager asset, @NonNull Collection<String> resPaths) {
         APK[] apKs = getAPKs(asset);
-        List<String> loaded = getLoadedResDirs(asset, apKs);
+        Collection<String> loaded = getLoadedResDirs(asset, apKs);
         List<String> toLoad = new ArrayList<>(resPaths);
         toLoad.removeAll(loaded);
         for (String path : toLoad) {
@@ -45,5 +45,5 @@ public abstract class BaseResourcesLoader<APK> implements IResourcesLoader {
 
     public abstract APK[] getAPKs(@NonNull AssetManager asset);
 
-    public abstract List<String> getLoadedResDirs(@NonNull AssetManager asset, @NonNull APK[] fullApks);
+    public abstract Collection<String> getLoadedResDirs(@NonNull AssetManager asset, @NonNull APK[] fullApks);
 }

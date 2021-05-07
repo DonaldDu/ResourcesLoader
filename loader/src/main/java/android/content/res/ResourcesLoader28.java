@@ -15,7 +15,6 @@ public class ResourcesLoader28 extends BaseResourcesLoader<ApkAssets> {
         return asset.getApkAssets();
     }
 
-
     @Override
     public Collection<String> getLoadedResDirs(@NonNull AssetManager asset, @NonNull ApkAssets[] fullApks) {
         List<String> paths = new ArrayList<>(fullApks.length);

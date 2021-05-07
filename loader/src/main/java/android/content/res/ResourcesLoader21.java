@@ -31,7 +31,6 @@ public class ResourcesLoader21 extends BaseResourcesLoader<Object> {
         }
     }
 
-
     @Override
     public Collection<String> getLoadedResDirs(@NonNull AssetManager asset, @NonNull Object[] fullApks) {
         List<String> paths = new ArrayList<>(fullApks.length);

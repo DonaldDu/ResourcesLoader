@@ -1,7 +1,9 @@
 package android.content.res;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -9,7 +11,43 @@ import java.util.List;
 /**
  * api >= 28
  */
+@SuppressWarnings("NewApi")
 public class ResourcesLoader28 extends BaseResourcesLoader<ApkAssets> {
+    @Nullable
+    private AssetManager sSystem;
+    @NonNull
+    private ApkAssets[] fullApks = new ApkAssets[0];
+
+    public ResourcesLoader28() {
+        try {
+            @SuppressWarnings("JavaReflectionMemberAccess")
+            Field sSystemF = AssetManager.class.getDeclaredField("sSystem");
+            sSystemF.setAccessible(true);
+            sSystem = (AssetManager) sSystemF.get(null);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void initForFastCompare(@NonNull AssetManager asset, @NonNull Collection<String> resPaths) {
+        super.initForFastCompare(asset, resPaths);
+        if (!this.resPaths.isEmpty()) {
+            if (sSystem != null) loadResources(sSystem, this.resPaths);
+            fullApks = loadResources(asset, this.resPaths);
+        }
+    }
+
+    @Override
+    public void loadResources(@NonNull AssetManager asset) {
+        if (!resPaths.isEmpty()) {
+            ApkAssets[] apKs = getAPKs(asset);
+            if (fullApks.length != apKs.length) {
+                fullApks = loadResources(asset, resPaths);
+            }
+        }
+    }
+
     @Override
     public ApkAssets[] getAPKs(@NonNull AssetManager asset) {
         return asset.getApkAssets();

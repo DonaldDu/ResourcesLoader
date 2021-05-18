@@ -12,6 +12,8 @@ import java.util.List;
  */
 public class ResourcesLoader21 extends BaseResourcesLoader<Object> {
     private final Field mStringBlocksF;
+    @NonNull
+    private Object[] fullApks = new Object[0];
 
     public ResourcesLoader21() {
         try {
@@ -19,6 +21,16 @@ public class ResourcesLoader21 extends BaseResourcesLoader<Object> {
             mStringBlocksF.setAccessible(true);
         } catch (NoSuchFieldException e) {
             throw new IllegalStateException(e);
+        }
+    }
+
+    @Override
+    public void loadResources(@NonNull AssetManager asset) {
+        if (!resPaths.isEmpty()) {
+            Object[] apKs = getAPKs(asset);
+            if (fullApks.length != apKs.length) {
+                fullApks = loadResources(asset, resPaths);
+            }
         }
     }
 

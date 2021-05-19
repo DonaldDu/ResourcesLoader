@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import java.util.Collection;
 
 public interface IResourcesLoader {
-    void initForFastCompare(@NonNull AssetManager asset, @NonNull Collection<String> resPaths);
+    void initFastCompare(@NonNull AssetManager asset, @NonNull Collection<String> resPaths);
 
     /**
      * with pre inited resPaths

@@ -12,10 +12,9 @@ import java.util.List;
  */
 public class ResourcesLoader21 extends BaseResourcesLoader<Object> {
     private final Field mStringBlocksF;
-    @NonNull
-    private Object[] fullApks = new Object[0];
 
     public ResourcesLoader21() {
+        super(new Object[0]);
         try {
             mStringBlocksF = AssetManager.class.getDeclaredField("mStringBlocks");
             mStringBlocksF.setAccessible(true);
@@ -26,10 +25,15 @@ public class ResourcesLoader21 extends BaseResourcesLoader<Object> {
 
     @Override
     public void loadResources(@NonNull AssetManager asset) {
-        if (!resPaths.isEmpty()) {
+        if (hasResources()) {
             Object[] apKs = getAPKs(asset);
             if (fullApks.length != apKs.length) {
                 fullApks = loadResources(asset, resPaths);
+            } else {
+                //check error
+                Collection<String> loadedResDirs = getLoadedResDirs(asset, apKs);
+                if (!loadedResDirs.containsAll(resPaths))
+                    throw new IllegalStateException("unloaded split resources error");
             }
         }
     }

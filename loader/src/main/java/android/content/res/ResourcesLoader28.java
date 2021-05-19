@@ -15,10 +15,9 @@ import java.util.List;
 public class ResourcesLoader28 extends BaseResourcesLoader<ApkAssets> {
     @Nullable
     private AssetManager sSystem;
-    @NonNull
-    private ApkAssets[] fullApks = new ApkAssets[0];
 
     public ResourcesLoader28() {
+        super(new ApkAssets[0]);
         try {
             @SuppressWarnings("JavaReflectionMemberAccess")
             Field sSystemF = AssetManager.class.getDeclaredField("sSystem");
@@ -30,17 +29,16 @@ public class ResourcesLoader28 extends BaseResourcesLoader<ApkAssets> {
     }
 
     @Override
-    public void initForFastCompare(@NonNull AssetManager asset, @NonNull Collection<String> resPaths) {
-        super.initForFastCompare(asset, resPaths);
-        if (!this.resPaths.isEmpty()) {
-            if (sSystem != null) loadResources(sSystem, this.resPaths);
-            fullApks = loadResources(asset, this.resPaths);
+    public void initFastCompare(@NonNull AssetManager asset, @NonNull Collection<String> resPaths) {
+        super.initFastCompare(asset, resPaths);
+        if (sSystem != null && hasResources()) {
+            loadResources(sSystem, this.resPaths);
         }
     }
 
     @Override
     public void loadResources(@NonNull AssetManager asset) {
-        if (!resPaths.isEmpty()) {
+        if (hasResources()) {
             ApkAssets[] apKs = getAPKs(asset);
             if (fullApks.length != apKs.length) {
                 fullApks = loadResources(asset, resPaths);

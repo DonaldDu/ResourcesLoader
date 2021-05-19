@@ -10,11 +10,11 @@ class App : Application() {
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
         prepareFile()
-        ResourcesLoader.instance.initForFastCompare(assets, listOf(file.absolutePath))
+        ResourcesLoader.instance.initFastCompare(assets, listOf(file.absolutePath))
     }
 
     private fun prepareFile() {
-        if (file.exists()) file.delete()
+        if (file.exists()) return
         file.createNewFile()
         val input = assets.open("assets.apk")
         input.use {

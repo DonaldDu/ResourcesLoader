@@ -1,21 +1,34 @@
 package android.content.res;
 
-import androidx.annotation.CallSuper;
 import androidx.annotation.NonNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public abstract class BaseResourcesLoader<APK> implements IResourcesLoader {
-    protected final List<String> resPaths = new ArrayList<>();
+    protected final Set<String> resPaths = new HashSet<>();
+    @NonNull
+    protected APK[] fullApks;
 
-    @CallSuper
+    /**
+     * @param emptyApks empty array
+     */
+    public BaseResourcesLoader(@NonNull APK[] emptyApks) {
+        this.fullApks = emptyApks;
+    }
+
     @Override
-    public void initForFastCompare(@NonNull AssetManager asset, @NonNull Collection<String> resPaths) {
+    public synchronized void initFastCompare(@NonNull AssetManager asset, @NonNull Collection<String> resPaths) {
         if (this.resPaths.containsAll(resPaths)) return;
-        this.resPaths.removeAll(resPaths);
         this.resPaths.addAll(resPaths);
+        fullApks = loadResources(asset, this.resPaths);
+    }
+
+    protected boolean hasResources() {
+        return resPaths.size() > 0;
     }
 
     protected APK[] loadResources(@NonNull AssetManager asset, @NonNull Collection<String> resPaths) {

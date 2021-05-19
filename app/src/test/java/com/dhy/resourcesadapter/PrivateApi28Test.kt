@@ -20,4 +20,10 @@ class PrivateApi28Test : BasePrivateApiTest() {
         val ApkAssets = Class.forName("android.content.res.ApkAssets")
         ApkAssets.getMethod("getAssetPath")
     }
+
+    @Test
+    fun assetManagerBuilder() {
+        val AssetManagerBuilder = Class.forName("android.content.res.AssetManager\$Builder")
+        println(AssetManagerBuilder.name)
+    }
 }

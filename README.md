@@ -1,6 +1,5 @@
 # ResourcesLoader [![](https://jitpack.io/v/DonaldDu/ResourcesLoader.svg)](https://jitpack.io/#DonaldDu/ResourcesLoader)
 
-# 项目由来 
 在学习qigsaw的过程中发现其加载和检查资源流程相对麻烦，从而造成效率低下。
 
 加载新资源后不需要重复加载，所以加载资源调用次数非常少，基本都是检查逻辑。每次获取资源前都要检查Split是否加载，所以调用非常频繁，执行速度太慢则会影响流畅度。

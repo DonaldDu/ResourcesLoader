@@ -1,9 +1,7 @@
 package android.content.res;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -13,25 +11,18 @@ import java.util.List;
  */
 @SuppressWarnings("NewApi")
 public class ResourcesLoader28 extends BaseResourcesLoader<ApkAssets> {
-    @Nullable
-    private AssetManager sSystem;
+    @NonNull
+    private final AssetManager sSystem;
 
     public ResourcesLoader28() {
         super(new ApkAssets[0]);
-        try {
-            @SuppressWarnings("JavaReflectionMemberAccess")
-            Field sSystemF = AssetManager.class.getDeclaredField("sSystem");
-            sSystemF.setAccessible(true);
-            sSystem = (AssetManager) sSystemF.get(null);
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
+        sSystem = AssetManager.getSystem();
     }
 
     @Override
     public void initFastCompare(@NonNull AssetManager asset, @NonNull Collection<String> resPaths) {
         super.initFastCompare(asset, resPaths);
-        if (sSystem != null && hasResources()) {
+        if (hasResources()) {
             loadResources(sSystem, this.resPaths);
         }
     }

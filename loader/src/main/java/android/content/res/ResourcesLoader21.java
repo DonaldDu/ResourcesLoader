@@ -29,11 +29,6 @@ public class ResourcesLoader21 extends BaseResourcesLoader<Object> {
             Object[] apKs = getAPKs(asset);
             if (fullApks.length != apKs.length) {
                 fullApks = loadResources(asset, resPaths);
-            } else {
-                //check error
-                Collection<String> loadedResDirs = getLoadedResDirs(asset, apKs);
-                if (!loadedResDirs.containsAll(resPaths))
-                    throw new IllegalStateException("unloaded split resources error");
             }
         }
     }

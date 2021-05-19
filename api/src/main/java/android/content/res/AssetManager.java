@@ -39,4 +39,9 @@ public abstract class AssetManager {
     abstract StringBlock[] ensureStringBlocks();
 
     public native final String getCookieName(int cookie);
+
+    @NonNull
+    public static AssetManager getSystem() {
+        return null;
+    }
 }

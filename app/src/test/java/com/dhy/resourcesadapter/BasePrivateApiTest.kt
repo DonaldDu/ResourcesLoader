@@ -12,7 +12,7 @@ open class BasePrivateApiTest {
     }
 
     @Test
-    fun sSystem() {
-        AssetManager::class.java.getDeclaredField("sSystem")
+    fun getSystem() {
+        AssetManager::class.java.getMethod("getSystem")
     }
 }

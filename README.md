@@ -21,7 +21,7 @@ qigsaw当前实现做一次检查大概250us（1ms=1000us），如果使用缓�
 - 通过对比加载资源的数量来得知是否已全部加载资源，替代复杂检查逻辑。
 
 
-# 使用资源加载器
+# 用法
 
 ```
 public interface IResourcesLoader {
